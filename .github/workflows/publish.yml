@@ -1,0 +1,28 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  publish_pypi:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Build
+        run: |
+          pip3 install --quiet --upgrade pip
+          pip3 install --quiet -r requirements.txt -r requirements-dev.txt
+          pip3 install --quiet --upgrade setuptools wheel twine
+          python3 setup.py sdist bdist_wheel
+      - name: Publish
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        run: twine upload dist/*
