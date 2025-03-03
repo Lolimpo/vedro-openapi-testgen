@@ -47,7 +47,3 @@ def command() -> None:
 
     args = parser.parse_args()
     args.command(args.openapi_spec_path, args.base_url, args.humanize)
-
-
-if __name__ == "__main__":
-    command()

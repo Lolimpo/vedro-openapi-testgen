@@ -1,6 +1,6 @@
 from setuptools import setup
 
-from vedro_openapi_testgen.__version__ import __version__
+from vedro_openapi_testgen import __version__
 
 
 def find_requirements():
